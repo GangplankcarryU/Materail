@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Materail.Models.Administrators>
+
+
+@{
+    ViewBag.Title = "管理員列表";
+}
+
+<h2>管理員列表</h2>
+
+<p>
+    @Html.ActionLink("新增資料", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            管理員編號
+        </th>
+        <th>
+            管理員姓名
+        </th>
+        <th>
+            管理員帳號
+        </th>
+        <th>
+            管理員密碼
+        </th>
+        <th>
+            性別
+        </th>
+        <th>
+            電話
+        </th>
+        <th>
+            電子郵件
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.admId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.admName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.admAct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.admPwd)
+            </td>
+            <td>
+                @(item.admGender?"男":"女")
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.admTel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.admEmail)
+            </td>
+            <td>
+                @Html.ActionLink("編輯", "Edit", new { id = item.admId }, new { @class = "btn btn-info btn-sm" }) |
+                @using (@Html.BeginForm("Delete", "Administrators", FormMethod.Post, new { @class = "d-inline-block" }))
+                {
+                    @Html.Hidden("id", item.admId)
+                    <input type="submit" value="刪除" class="btn btn-danger btn-sm" onclick="return confirm('您確定要刪除管理員編號@(item.admId):@(item.admName)的資料嗎?')" />
+                }
+            </td>
+        </tr>
+    }
+
+</table>

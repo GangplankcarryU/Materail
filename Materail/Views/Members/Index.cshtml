@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Materail.Models.Members>
+
+@{
+    ViewBag.Title = "職員列表";
+}
+
+<h2>職員列表</h2>
+
+<p>
+    @Html.ActionLink("新增資料", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            職員編號
+        </th>
+        <th>
+            職員姓名
+        </th>
+        <th>
+            帳號
+        </th>
+        <th>
+            密碼
+        </th>
+        <th>
+            電話
+        </th>
+        <th>
+            電子郵件
+        </th>
+        <th>
+            性別
+        </th>
+        <th>
+            權限
+        </th>
+        <th>
+            職稱
+        </th>
+        <th>
+            主管編號
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.memId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.memName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.memAct)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.memPwd)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.memTel)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.memEmail)
+    </td>
+    <td>
+        @(item.memGender?"男":"女")
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Authority)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.memTitle)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Administrators.admName)
+    </td>
+    <td>
+        @Html.ActionLink("編輯", "Edit", new { id = item.memId }) |
+
+        @Html.ActionLink("刪除", "Delete", new { id = item.memId })
+    </td>
+</tr>
+}
+
+</table>
