@@ -35,23 +35,35 @@ namespace Materail.Controllers
         public ActionResult Create(VMAdministratorsCreate vmac)
         {
             Administrators administrators = new Administrators();
-
+            var exist = db.Administrators.Where(m => m.admId == vmac.admId).FirstOrDefault();
+            
             if (ModelState.IsValid)
             {
-                administrators.admId = vmac.admId;
-                administrators.admName = vmac.admName;
-                administrators.admAct = vmac.admAct;
-                administrators.admPwd =vmac.admPwd;
-                administrators.admGender = vmac.admGender;
-                administrators.admTel = vmac.admTel;
-                administrators.admEmail = vmac.admEmail;
+                if(exist == null)
+                {
+                    administrators.admId = vmac.admId;
+                    administrators.admName = vmac.admName;
+                    administrators.admAct = vmac.admAct;
+                    administrators.admPwd =vmac.admPwd;
+                    administrators.admGender = vmac.admGender;
+                    administrators.admTel = vmac.admTel;
+                    administrators.admEmail = vmac.admEmail;
+
+                    db.Administrators.Add(administrators);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.ErrorMessageKEY = "管理員編號不可重複，請重新輸入!";
+                    return View(vmac);
+                }
+                
 
 
-                db.Administrators.Add(administrators);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                
             }
-
+           
             return View(vmac);
         }
 
