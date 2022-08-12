@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Materail.Models;
@@ -81,9 +82,88 @@ namespace Materail.Controllers
                 return RedirectToAction("Index");
             }
         }
-        public ActionResult Edit()
+        public ActionResult Edit(string id)
         {
-            return View();
-        }        
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            VMMembersEdit vmme = new VMMembersEdit();
+            Members members = db.Members.Find(id);
+
+
+            if (members == null)
+            {
+                return HttpNotFound();
+            }
+            
+            vmme.memId = members.memId;
+            vmme.memName = members.memName;
+            vmme.memAct = members.memAct;
+            vmme.memPwd = members.memPwd;
+            vmme.memTel = members.memTel;
+            vmme.memEmail = members.memEmail;
+            vmme.memGender = members.memGender;
+            vmme.Authority = members.Authority;
+            vmme.memTitle = members.memTitle;
+            vmme.admId = members.admId;
+
+            return View(vmme);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(VMMembersEdit vmme)
+        {
+
+
+            if (ModelState.IsValid)
+            {
+                var exist = db.Members.Where(m => m.memAct == vmme.memAct).FirstOrDefault();
+
+
+                if (exist == null)
+                {
+                    var edit = db.Members.Where(x => x.memId == vmme.admId).FirstOrDefault();
+
+                    edit.memId = vmme.memId;
+                    edit.memName = vmme.memName;
+                    edit.memAct = vmme.memAct;
+                    edit.memPwd = vmme.memPwd;
+                    edit.memTel = vmme.memTel;
+                    edit.memEmail = vmme.memEmail;
+                    edit.memGender = vmme.memGender;
+                    edit.Authority = vmme.Authority;
+                    edit.memTitle = vmme.memTitle;
+                    edit.admId = vmme.admId;
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else if (exist.memId == vmme.memId)
+                {
+                    var edit = db.Members.Where(x => x.admId == vmme.admId).FirstOrDefault();
+
+                    edit.memId = vmme.memId;
+                    edit.memName = vmme.memName;
+                    edit.memAct = vmme.memAct;
+                    edit.memPwd = vmme.memPwd;
+                    edit.memTel = vmme.memTel;
+                    edit.memEmail = vmme.memEmail;
+                    edit.memGender = vmme.memGender;
+                    edit.Authority = vmme.Authority;
+                    edit.memTitle = vmme.memTitle;
+                    edit.admId = vmme.admId;
+
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                ViewBag.ErrorMessage = "此帳號已經存在，請重新操作!";
+                return View(vmme);
+            }
+            return View(vmme);
+        }
     }
 }
