@@ -96,7 +96,9 @@ namespace Materail.Controllers
             {
                 return HttpNotFound();
             }
+
             
+
             vmme.memId = members.memId;
             vmme.memName = members.memName;
             vmme.memAct = members.memAct;
@@ -107,6 +109,9 @@ namespace Materail.Controllers
             vmme.Authority = members.Authority;
             vmme.memTitle = members.memTitle;
             vmme.admId = members.admId;
+
+            ViewBag.adm = db.Administrators.ToList();
+            ViewBag.admId = vmme.admId.ToString();
 
             return View(vmme);
         }
@@ -126,7 +131,10 @@ namespace Materail.Controllers
                 {
                     var edit = db.Members.Where(x => x.memId == vmme.admId).FirstOrDefault();
 
-                    edit.memId = vmme.memId;
+                    ViewBag.adm = db.Administrators.ToList();
+                    ViewBag.admId = vmme.admId.ToString();
+
+
                     edit.memName = vmme.memName;
                     edit.memAct = vmme.memAct;
                     edit.memPwd = vmme.memPwd;
@@ -142,9 +150,11 @@ namespace Materail.Controllers
                 }
                 else if (exist.memId == vmme.memId)
                 {
-                    var edit = db.Members.Where(x => x.admId == vmme.admId).FirstOrDefault();
+                    var edit = db.Members.Where(x => x.memId == vmme.memId).FirstOrDefault();
 
-                    edit.memId = vmme.memId;
+                    ViewBag.adm = db.Administrators.ToList();
+                    ViewBag.admId = vmme.admId.ToString();
+
                     edit.memName = vmme.memName;
                     edit.memAct = vmme.memAct;
                     edit.memPwd = vmme.memPwd;
@@ -155,14 +165,19 @@ namespace Materail.Controllers
                     edit.memTitle = vmme.memTitle;
                     edit.admId = vmme.admId;
 
+                    
 
                     db.SaveChanges();
 
                     return RedirectToAction("Index");
                 }
                 ViewBag.ErrorMessage = "此帳號已經存在，請重新操作!";
+                ViewBag.adm = db.Administrators.ToList();
+                ViewBag.admId = vmme.admId.ToString();
                 return View(vmme);
             }
+            ViewBag.adm = db.Administrators.ToList();
+            ViewBag.admId = vmme.admId.ToString();
             return View(vmme);
         }
     }

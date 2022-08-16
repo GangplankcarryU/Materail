@@ -16,7 +16,7 @@ namespace Materail.Models.ViewModel
 
         [DisplayName("管理員姓名")]
         [Required(ErrorMessage = "管理員姓名為必填")]
-        [StringLength(20)]
+        [StringLength(20, ErrorMessage = "管理員姓名最多20個字")]
         public string admName { get; set; }
 
 

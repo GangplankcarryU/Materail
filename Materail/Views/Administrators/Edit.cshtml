@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>VMAdministratorsEdit</h4>
         <hr />
@@ -29,9 +29,9 @@
             @Html.LabelFor(model => model.admAct, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.admAct, new { htmlAttributes = new { @class = "form-control" } })
-                
-                    <p class="text-danger">@ViewBag.ErrorMessage</p>
-                
+
+                <p class="text-danger">@ViewBag.ErrorMessage</p>
+
             </div>
         </div>
 
@@ -54,13 +54,13 @@
                         <input class="check-box" data-val="true" data-val-required="請選擇性別" id="admGender0" name="admGender" type="radio" value="false" />
                         <span>女</span>
                     }
-                    else {
-                        <input class="check-box" data-val="true" data-val-required="請選擇性別" id="admGender1" name="admGender" type="radio" value="true"  />
+                    else
+                    {
+                        <input class="check-box" data-val="true" data-val-required="請選擇性別" id="admGender1" name="admGender" type="radio" value="true" />
                         <span>男</span>
-                        <input class="check-box" data-val="true" data-val-required="請選擇性別" id="admGender0" name="admGender" type="radio" value="false" checked/>
+                        <input class="check-box" data-val="true" data-val-required="請選擇性別" id="admGender0" name="admGender" type="radio" value="false" checked />
                         <span>女</span>
                     }
-                    
 
                     <span class="field-validation-valid text-danger" data-valmsg-for="admGender" data-valmsg-replace="true"></span>
                 </div>
@@ -85,14 +85,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="儲存" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("回管理員列表", "Index")
 </div>
 
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>

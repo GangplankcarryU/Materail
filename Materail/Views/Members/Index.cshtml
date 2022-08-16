@@ -77,11 +77,21 @@
         @Html.DisplayFor(modelItem => item.Administrators.admName)
     </td>
     <td>
-        @Html.ActionLink("編輯", "Edit", new { id = item.memId }) |
+        @Html.ActionLink("編輯", "Edit", new { id = item.memId }, new { @class = "btn btn-info btn-sm" }) |
 
-        @Html.ActionLink("刪除", "Delete", new { id = item.memId })
+        @using (@Html.BeginForm("Delete", "Members", FormMethod.Post, new { @class = "d-inline-block" }))
+        {
+            @Html.Hidden("id", item.memId)
+            <input type="submit" value="刪除" class="btn btn-danger btn-sm" onclick="return confirm('您確定要刪除職員編號@(item.memId):@(item.memName)的資料嗎?')" />
+        }
     </td>
 </tr>
 }
 
 </table>
+<script>
+    @if(TempData["ResultMessage"] != null)
+            {
+                <text>alert('@TempData["ResultMessage"]')</text>
+            }
+</script>

@@ -310,6 +310,7 @@
     <Compile Include="Models\ViewModel\VMAdministratorsEdit.cs" />
     <Compile Include="Models\ViewModel\VMMembersCreate.cs" />
     <Compile Include="Models\ViewModel\VMMembersEdit.cs" />
+    <Compile Include="Models\ViewModel\VMSuppliers.cs" />
     <Compile Include="Models\Warehouse.cs">
       <DependentUpon>MaterailManagement.tt</DependentUpon>
     </Compile>
@@ -345,6 +346,7 @@
     <Content Include="Views\Administrators\Edit.cshtml" />
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\Members\Create.cshtml" />
+    <Content Include="Views\Members\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

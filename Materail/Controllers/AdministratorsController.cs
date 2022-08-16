@@ -56,12 +56,12 @@ namespace Materail.Controllers
                 else
                 {
                     ViewBag.ErrorMessageKEY = "管理員編號不可重複，請重新輸入!";
-                    return View(vmac);
+                    return View();
                 }
              
             }
            
-            return View(vmac);
+            return View();
         }
 
         // GET: Administrators/Edit/5
