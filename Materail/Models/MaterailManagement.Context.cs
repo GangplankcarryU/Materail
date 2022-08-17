@@ -44,5 +44,7 @@ namespace Materail.Models
         public System.Data.Entity.DbSet<Materail.Models.ViewModel.VMAdministratorsCreate> VMAdministratorsCreates { get; set; }
 
         public System.Data.Entity.DbSet<Materail.Models.ViewModel.VMAdministratorsEdit> VMAdministratorsEdits { get; set; }
+
+        public System.Data.Entity.DbSet<Materail.Models.ViewModel.VMSuppliers> VMSuppliers { get; set; }
     }
 }

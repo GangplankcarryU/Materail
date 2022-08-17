@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Materail.Models.ViewModel.VMSuppliers>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>供應商列表</h2>
+
+<p>
+    @Html.ActionLink("新增資料", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().supId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().supName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().supTel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().supAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().supNotes)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.supId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.supName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.supTel)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.supAddress)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.supNotes)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.supId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.supId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.supId })
+    </td>
+</tr>
+}
+
+</table>
