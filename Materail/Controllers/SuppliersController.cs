@@ -98,5 +98,41 @@ namespace Materail.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+
+        public ActionResult Edit(VMSuppliers vms)
+        {
+            if (ModelState.IsValid)
+            {
+                Suppliers edit = db.Suppliers.Where(s => s.supId == vms.supId).FirstOrDefault();
+                
+                edit.supName = vms.supName;
+                edit.supTel = vms.supTel;
+                edit.supAddress = vms.supAddress;
+                edit.supNotes = vms.supNotes;
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(string id)
+        {
+            Suppliers suppliers = db.Suppliers.Where(s => s.supId == id).FirstOrDefault();
+            if (suppliers != null)
+            {
+                db.Suppliers.Remove(suppliers);
+                db.SaveChanges();
+                TempData["ResultMessage"] = String.Format("已成功刪除供應商編號[{0}]的相關資料", suppliers.supId);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["ResultMessage"] = "該供應商資料不存在，無法刪除，請重新操作";
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

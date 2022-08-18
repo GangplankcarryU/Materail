@@ -28,7 +28,7 @@ namespace Materail.Models.ViewModel
         [DisplayName("地址")]
         [Required(ErrorMessage = "地址為必填")]
         [StringLength(50, ErrorMessage = "地址最多50個字")]
-        public string cusAdddress { get; set; }
+        public string cusAddress { get; set; }
 
 
         [DisplayName("備註")]

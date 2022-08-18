@@ -24,7 +24,7 @@ namespace Materail.Models
         public string cusId { get; set; }
         public string cusName { get; set; }
         public string cusTel { get; set; }
-        public string cusAdddress { get; set; }
+        public string cusAddress { get; set; }
         public string cusNotes { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

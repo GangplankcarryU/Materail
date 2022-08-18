@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Materail.Models.ViewModel.VMCustomers>
+
+@{
+    ViewBag.Title = "客戶列表";
+}
+
+<h2>客戶列表</h2>
+
+<p>
+    @Html.ActionLink("新增資料", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.cusId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cusName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cusTel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cusAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cusNotes)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.cusId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.cusName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.cusTel)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.cusAddress)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.cusNotes)
+    </td>
+    <td>
+        @Html.ActionLink("編輯", "Edit", new { id = item.cusId }, new { @class = "btn btn-info btn-sm" }) |
+
+        @using (@Html.BeginForm("Delete", "Customers", FormMethod.Post, new { @class = "d-inline-block" }))
+        {
+        @Html.Hidden("id", item.cusId)
+        <input type="submit" value="刪除" class="btn btn-danger btn-sm" onclick="return confirm('您確定要刪除客戶編號[@(item.cusId)]:[@(item.cusName)]的資料嗎?')" />
+        }
+    </td>
+</tr>
+}
+
+</table>
+<script>
+    @if(TempData["ResultMessage"] != null)
+            {
+                <text>alert('@TempData["ResultMessage"]')</text>
+            }
+</script>

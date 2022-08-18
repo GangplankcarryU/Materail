@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Materail.Models.ViewModel.VMSuppliers>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "供應商列表";
 }
 
 <h2>供應商列表</h2>
@@ -29,29 +29,46 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.supId)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.supName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.supTel)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.supAddress)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.supNotes)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.supId }) |
-        @Html.ActionLink("Details", "Details", new { id = item.supId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.supId })
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.supId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.supName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.supTel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.supAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.supNotes)
+            </td>
+            <td>
+                @if (item.supId != "S00000")
+                {
+                    @Html.ActionLink("編輯", "Edit", new { id = item.supId }, new {@class= "btn btn-info btn-sm" })
+                    @Html.Label(" "+" | "+" ")
+
+                    using (@Html.BeginForm("Delete", "Suppliers", FormMethod.Post, new { @class = "d-inline-block" }))
+                    {
+                        @Html.Hidden("id", item.supId)
+                        <input type="submit" value="刪除" class="btn btn-danger btn-sm" onclick="return confirm('您確定要刪除供應商編號[@(item.supId)]:[@(item.supName)]的資料嗎?')" />
+                    }
+                }
+
+            </td>
+        </tr>
+    }
 
 </table>
+<script>
+    @if(TempData["ResultMessage"] != null)
+            {
+                <text>alert('@TempData["ResultMessage"]')</text>
+            }
+</script>
+
