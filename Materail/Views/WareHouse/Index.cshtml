@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Materail.Models.ViewModel.VMWareHouse>
+
+@{
+    ViewBag.Title = "倉庫列表";
+}
+
+<h2>倉庫列表</h2>
+
+<p>
+    @Html.ActionLink("新增資料", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.whId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.whName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.whTel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.whAddress)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.whId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.whName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.whTel)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.whAddress)
+    </td>
+    <td>
+        @Html.ActionLink("編輯", "Edit", new { id = item.whId }, new { @class = "btn btn-info btn-sm" }) |
+
+        @Html.Hidden("id", item.whId)
+        <input type="submit" value="刪除" class="btn btn-danger btn-sm" onclick="return confirm('您確定要刪除客戶編號[@(item.whId)]:[@(item.whName)]的資料嗎?')" />
+        
+    </td>
+</tr>
+}
+
+</table>

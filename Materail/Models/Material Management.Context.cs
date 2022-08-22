@@ -42,5 +42,7 @@ namespace Materail.Models
         public virtual DbSet<Warehouse> Warehouse { get; set; }
 
         public System.Data.Entity.DbSet<Materail.Models.ViewModel.VMCustomers> VMCustomers { get; set; }
+
+        public System.Data.Entity.DbSet<Materail.Models.ViewModel.VMWareHouse> VMWareHouses { get; set; }
     }
 }
