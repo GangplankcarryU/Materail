@@ -95,7 +95,7 @@ namespace Materail.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
 
         public ActionResult Edit(VMCustomers vmc)
         {

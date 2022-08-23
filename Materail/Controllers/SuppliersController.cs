@@ -117,7 +117,7 @@ namespace Materail.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       
         public ActionResult Delete(string id)
         {
             Suppliers suppliers = db.Suppliers.Where(s => s.supId == id).FirstOrDefault();
