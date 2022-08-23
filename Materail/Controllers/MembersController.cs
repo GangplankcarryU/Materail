@@ -66,6 +66,7 @@ namespace Materail.Controllers
             return View(vmmc);
         }
 
+        [HttpPost]
         public ActionResult Delete(string id)
         {
             var mem = db.Members.Where(m => m.memId == id).FirstOrDefault();
@@ -117,7 +118,7 @@ namespace Materail.Controllers
         }
         
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult Edit(VMMembersEdit vmme)
         {
 

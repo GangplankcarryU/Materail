@@ -115,7 +115,7 @@ namespace Materail.Controllers
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult Delete(string id)
         {
             Customers customers = db.Customers.Where(c => c.cusId == id).FirstOrDefault();

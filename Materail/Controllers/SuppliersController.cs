@@ -41,7 +41,7 @@ namespace Materail.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult Create(VMSuppliers vms)
         {
             Suppliers suppliers = new Suppliers();
