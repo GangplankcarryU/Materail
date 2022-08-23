@@ -319,6 +319,7 @@
     <Compile Include="Models\Unique.cs" />
     <Compile Include="Models\ViewModel\VMAdministratorsEdit.cs" />
     <Compile Include="Models\ViewModel\VMCustomers.cs" />
+    <Compile Include="Models\ViewModel\VMMaterials.cs" />
     <Compile Include="Models\ViewModel\VMMembersCreate.cs" />
     <Compile Include="Models\ViewModel\VMMembersEdit.cs" />
     <Compile Include="Models\ViewModel\VMSuppliers.cs" />

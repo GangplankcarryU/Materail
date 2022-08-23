@@ -18,7 +18,7 @@ namespace Materail.Models
         public string memId { get; set; }
         public string whId { get; set; }
         public string materialId { get; set; }
-        public int saleNum { get; set; }
+        public double saleNum { get; set; }
         public string Unit { get; set; }
         public string saleAddress { get; set; }
         public byte delType { get; set; }

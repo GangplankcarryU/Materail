@@ -19,7 +19,7 @@ namespace Materail.Models
         public string memId { get; set; }
         public string supId { get; set; }
         public string goodId { get; set; }
-        public int poRNum { get; set; }
+        public double poRNum { get; set; }
         public string Unit { get; set; }
         public decimal poRUnitPrice { get; set; }
         public System.DateTime poRCreateTime { get; set; }

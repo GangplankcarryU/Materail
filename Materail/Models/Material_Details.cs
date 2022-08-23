@@ -16,7 +16,7 @@ namespace Materail.Models
     {
         public string materialId { get; set; }
         public string whId { get; set; }
-        public int materialNum { get; set; }
+        public double materialNum { get; set; }
         public string Unit { get; set; }
         public System.DateTime MaterialDate { get; set; }
         public string MaterailLotNo { get; set; }

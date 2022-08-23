@@ -16,7 +16,7 @@ namespace Materail.Models
     {
         public string orderId { get; set; }
         public string materialId { get; set; }
-        public int orderNum { get; set; }
+        public double orderNum { get; set; }
         public string Unit { get; set; }
         public decimal orderUnitPrice { get; set; }
         public Nullable<float> orderDiscount { get; set; }

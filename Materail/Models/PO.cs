@@ -24,7 +24,7 @@ namespace Materail.Models
         public string memId { get; set; }
         public string supId { get; set; }
         public string goodId { get; set; }
-        public int poNum { get; set; }
+        public double poNum { get; set; }
         public string Unit { get; set; }
         public decimal poUnitPrice { get; set; }
         public System.DateTime poCreateTime { get; set; }
