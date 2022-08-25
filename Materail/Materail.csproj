@@ -251,6 +251,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdministratorsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\EntrysController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\WareHouseController.cs" />
@@ -264,6 +265,12 @@
       <DependentUpon>Material Management.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entrys.cs">
+      <DependentUpon>Material Management.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entry_Derails.cs">
+      <DependentUpon>Material Management.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entry_Details.cs">
       <DependentUpon>Material Management.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Material Management.Context.cs">
@@ -319,6 +326,7 @@
     <Compile Include="Models\Unique.cs" />
     <Compile Include="Models\ViewModel\VMAdministratorsEdit.cs" />
     <Compile Include="Models\ViewModel\VMCustomers.cs" />
+    <Compile Include="Models\ViewModel\VMEntrys.cs" />
     <Compile Include="Models\ViewModel\VMMaterials.cs" />
     <Compile Include="Models\ViewModel\VMMembersCreate.cs" />
     <Compile Include="Models\ViewModel\VMMembersEdit.cs" />
@@ -362,6 +370,7 @@
     <Content Include="Views\WareHouse\Index.cshtml" />
     <Content Include="Views\WareHouse\Edit.cshtml" />
     <Content Include="Views\WareHouse\Create.cshtml" />
+    <Content Include="Views\Entrys\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

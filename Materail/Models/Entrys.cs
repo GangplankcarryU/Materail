@@ -14,18 +14,19 @@ namespace Materail.Models
     
     public partial class Entrys
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Entrys()
+        {
+            this.Entry_Derails = new HashSet<Entry_Derails>();
+        }
+    
         public string entryId { get; set; }
         public string memId { get; set; }
-        public string whId { get; set; }
-        public string materialId { get; set; }
-        public double entryNum { get; set; }
-        public string Unit { get; set; }
         public System.DateTime entryTime { get; set; }
-        public string materialLotNo { get; set; }
         public string entryNotes { get; set; }
     
-        public virtual Materials Materials { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Entry_Derails> Entry_Derails { get; set; }
         public virtual Members Members { get; set; }
-        public virtual Warehouse Warehouse { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace Materail.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Materials()
         {
-            this.Entrys = new HashSet<Entrys>();
+            this.Entry_Derails = new HashSet<Entry_Derails>();
             this.Material_Details = new HashSet<Material_Details>();
             this.Material_Request = new HashSet<Material_Request>();
             this.Order_Details = new HashSet<Order_Details>();
@@ -31,7 +31,7 @@ namespace Materail.Models
         public byte materialType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entrys> Entrys { get; set; }
+        public virtual ICollection<Entry_Derails> Entry_Derails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Material_Details> Material_Details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -4,28 +4,31 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9803912644f34610a22ad28124df5e32" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.Administrators" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Customers" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Entrys" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Material_Details" Width="1.5" PointX="11.25" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Material_Request" Width="1.5" PointX="8.25" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Materials" Width="1.5" PointX="6" PointY="21.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Members" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Order_Details" Width="1.5" PointX="10.5" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Orders" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.PO" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.POR" Width="1.5" PointX="7.5" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Sales" Width="1.5" PointX="8.25" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Suppliers" Width="1.5" PointX="3" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Warehouse" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="18b9d46c233c436caae1b41339413060" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Administrators" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Customers" Width="1.5" PointX="8" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Entry_Derails" Width="1.5" PointX="7.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Entrys" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Material_Details" Width="1.5" PointX="8.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Material_Request" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Materials" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Members" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Order_Details" Width="1.5" PointX="7.5" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Orders" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PO" Width="1.5" PointX="8.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.POR" Width="1.5" PointX="10.5" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Sales" Width="1.5" PointX="10.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Suppliers" Width="1.5" PointX="6" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Warehouse" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Entry_Details" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_Members_Administrators" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Orders_Customers" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Sales_Customers" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_Entrys_Materials" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Entry_Derails_Entrys" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Entry_Derails_Materials" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Entry_Derails_Warehouse" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Entrys_Members" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_Entrys_Warehouse" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Material_Details_Materials" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Material_Details_Suppliers" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Material_Details_Warehouse" ManuallyRouted="false" />
