@@ -17,10 +17,10 @@ namespace Materail.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Warehouse()
         {
-            this.Entry_Derails = new HashSet<Entry_Derails>();
+            this.Entry_Details = new HashSet<Entry_Details>();
             this.Material_Details = new HashSet<Material_Details>();
             this.Material_Request = new HashSet<Material_Request>();
-            this.Sales = new HashSet<Sales>();
+            this.Sale_Details = new HashSet<Sale_Details>();
         }
     
         public string whId { get; set; }
@@ -29,12 +29,12 @@ namespace Materail.Models
         public string whAddress { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entry_Derails> Entry_Derails { get; set; }
+        public virtual ICollection<Entry_Details> Entry_Details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Material_Details> Material_Details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Material_Request> Material_Request { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sales> Sales { get; set; }
+        public virtual ICollection<Sale_Details> Sale_Details { get; set; }
     }
 }

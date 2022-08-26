@@ -27,7 +27,7 @@ namespace Materail.Models
     
         public virtual DbSet<Administrators> Administrators { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
-        public virtual DbSet<Entry_Derails> Entry_Derails { get; set; }
+        public virtual DbSet<Entry_Details> Entry_Details { get; set; }
         public virtual DbSet<Entrys> Entrys { get; set; }
         public virtual DbSet<Material_Details> Material_Details { get; set; }
         public virtual DbSet<Material_Request> Material_Request { get; set; }
@@ -37,10 +37,10 @@ namespace Materail.Models
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<PO> PO { get; set; }
         public virtual DbSet<POR> POR { get; set; }
+        public virtual DbSet<Sale_Details> Sale_Details { get; set; }
         public virtual DbSet<Sales> Sales { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Warehouse> Warehouse { get; set; }
-        public virtual DbSet<Entry_Details> Entry_Details { get; set; }
     }
 }

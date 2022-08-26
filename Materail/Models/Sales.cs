@@ -14,25 +14,25 @@ namespace Materail.Models
     
     public partial class Sales
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Sales()
+        {
+            this.Sale_Details = new HashSet<Sale_Details>();
+        }
+    
         public string saleId { get; set; }
         public string memId { get; set; }
-        public string whId { get; set; }
-        public string materialId { get; set; }
-        public double saleNum { get; set; }
-        public string Unit { get; set; }
         public string saleAddress { get; set; }
         public byte delType { get; set; }
         public byte saleStatus { get; set; }
         public System.DateTime saleCreateTime { get; set; }
         public Nullable<System.DateTime> saleFinishTime { get; set; }
-        public string materialLotNo { get; set; }
         public string saleNotes { get; set; }
         public string cusId { get; set; }
     
         public virtual Customers Customers { get; set; }
-        public virtual Materials Materials { get; set; }
-        public virtual Materials Materials1 { get; set; }
         public virtual Members Members { get; set; }
-        public virtual Warehouse Warehouse { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale_Details> Sale_Details { get; set; }
     }
 }

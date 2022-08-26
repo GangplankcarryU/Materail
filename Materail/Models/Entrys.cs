@@ -17,7 +17,7 @@ namespace Materail.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Entrys()
         {
-            this.Entry_Derails = new HashSet<Entry_Derails>();
+            this.Entry_Details = new HashSet<Entry_Details>();
         }
     
         public string entryId { get; set; }
@@ -26,7 +26,7 @@ namespace Materail.Models
         public string entryNotes { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entry_Derails> Entry_Derails { get; set; }
+        public virtual ICollection<Entry_Details> Entry_Details { get; set; }
         public virtual Members Members { get; set; }
     }
 }

@@ -267,9 +267,6 @@
     <Compile Include="Models\Entrys.cs">
       <DependentUpon>Material Management.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entry_Derails.cs">
-      <DependentUpon>Material Management.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Entry_Details.cs">
       <DependentUpon>Material Management.tt</DependentUpon>
     </Compile>
@@ -315,6 +312,9 @@
       <DependentUpon>Material Management.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sales.cs">
+      <DependentUpon>Material Management.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sale_Details.cs">
       <DependentUpon>Material Management.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Suppliers.cs">

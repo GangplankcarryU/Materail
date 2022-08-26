@@ -27,27 +27,10 @@
           <Property Name="cusAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="cusNotes" Type="nvarchar" MaxLength="1000" />
         </EntityType>
-        <EntityType Name="Entry Derails">
-          <Key>
-            <PropertyRef Name="entryId" />
-            <PropertyRef Name="materialId" />
-          </Key>
-          <Property Name="entryId" Type="char" MaxLength="13" Nullable="false" />
-          <Property Name="materialId" Type="varchar" MaxLength="52" Nullable="false" />
-          <Property Name="entryNum" Type="float" Nullable="false" />
-          <Property Name="MaterialLotNum" Type="nvarchar" MaxLength="50" />
-          <Property Name="Unit" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="whId" Type="char" MaxLength="5" Nullable="false" />
-        </EntityType>
-        <!--產生期間發現錯誤:
-警告 6002: 資料表/檢視 'D:\CLONE\MATERIAL\MATERAIL\APP_DATA\MATERIAL MANAGEMENT.MDF.dbo.Entry Details' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
         <EntityType Name="Entry Details">
           <Key>
             <PropertyRef Name="entryId" />
             <PropertyRef Name="materialId" />
-            <PropertyRef Name="entryNum" />
-            <PropertyRef Name="Unit" />
-            <PropertyRef Name="whId" />
           </Key>
           <Property Name="entryId" Type="char" MaxLength="13" Nullable="false" />
           <Property Name="materialId" Type="varchar" MaxLength="52" Nullable="false" />
@@ -173,22 +156,29 @@
           <Property Name="poRStatus" Type="tinyint" Nullable="false" />
           <Property Name="poRNotes" Type="nvarchar" MaxLength="1000" />
         </EntityType>
+        <EntityType Name="Sale Details">
+          <Key>
+            <PropertyRef Name="saleId" />
+            <PropertyRef Name="whId" />
+          </Key>
+          <Property Name="saleId" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="whId" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="materialId" Type="varchar" MaxLength="52" Nullable="false" />
+          <Property Name="saleNum" Type="float" Nullable="false" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="materialLotNo" Type="varchar" MaxLength="25" />
+        </EntityType>
         <EntityType Name="Sales">
           <Key>
             <PropertyRef Name="saleId" />
           </Key>
           <Property Name="saleId" Type="char" MaxLength="12" Nullable="false" />
           <Property Name="memId" Type="char" MaxLength="6" Nullable="false" />
-          <Property Name="whId" Type="char" MaxLength="5" Nullable="false" />
-          <Property Name="materialId" Type="varchar" MaxLength="52" Nullable="false" />
-          <Property Name="saleNum" Type="float" Nullable="false" />
-          <Property Name="Unit" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="saleAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="delType" Type="tinyint" Nullable="false" />
           <Property Name="saleStatus" Type="tinyint" Nullable="false" />
           <Property Name="saleCreateTime" Type="datetime" Nullable="false" />
           <Property Name="saleFinishTime" Type="datetime" />
-          <Property Name="materialLotNo" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="saleNotes" Type="nvarchar" MaxLength="1000" />
           <Property Name="cusId" Type="char" MaxLength="6" Nullable="false" />
         </EntityType>
@@ -221,38 +211,38 @@
           <Property Name="whTel" Type="varchar" MaxLength="11" Nullable="false" />
           <Property Name="whAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Entry Derails_Entrys">
+        <Association Name="FK_Entry Details_Entrys">
           <End Role="Entrys" Type="Self.Entrys" Multiplicity="1" />
-          <End Role="Entry Derails" Type="Self.Entry Derails" Multiplicity="*" />
+          <End Role="Entry Details" Type="Self.Entry Details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Entrys">
               <PropertyRef Name="entryId" />
             </Principal>
-            <Dependent Role="Entry Derails">
+            <Dependent Role="Entry Details">
               <PropertyRef Name="entryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Entry Derails_Materials">
+        <Association Name="FK_Entry Details_Materials">
           <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
-          <End Role="Entry Derails" Type="Self.Entry Derails" Multiplicity="*" />
+          <End Role="Entry Details" Type="Self.Entry Details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Materials">
               <PropertyRef Name="materialId" />
             </Principal>
-            <Dependent Role="Entry Derails">
+            <Dependent Role="Entry Details">
               <PropertyRef Name="materialId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Entry Derails_Warehouse">
+        <Association Name="FK_Entry Details_Warehouse">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
-          <End Role="Entry Derails" Type="Self.Entry Derails" Multiplicity="*" />
+          <End Role="Entry Details" Type="Self.Entry Details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Warehouse">
               <PropertyRef Name="whId" />
             </Principal>
-            <Dependent Role="Entry Derails">
+            <Dependent Role="Entry Details">
               <PropertyRef Name="whId" />
             </Dependent>
           </ReferentialConstraint>
@@ -461,6 +451,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sale Details_Materials">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
+          <End Role="Sale Details" Type="Self.Sale Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="materialId" />
+            </Principal>
+            <Dependent Role="Sale Details">
+              <PropertyRef Name="materialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale Details_Sales">
+          <End Role="Sales" Type="Self.Sales" Multiplicity="1" />
+          <End Role="Sale Details" Type="Self.Sale Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="saleId" />
+            </Principal>
+            <Dependent Role="Sale Details">
+              <PropertyRef Name="saleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale Details_Warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="Sale Details" Type="Self.Sale Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="whId" />
+            </Principal>
+            <Dependent Role="Sale Details">
+              <PropertyRef Name="whId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sales_Customers">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
           <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
@@ -470,30 +496,6 @@
             </Principal>
             <Dependent Role="Sales">
               <PropertyRef Name="cusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sales_Materials">
-          <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
-          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Materials">
-              <PropertyRef Name="materialId" />
-            </Principal>
-            <Dependent Role="Sales">
-              <PropertyRef Name="materialId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sales_Materials1">
-          <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
-          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Materials">
-              <PropertyRef Name="materialId" />
-            </Principal>
-            <Dependent Role="Sales">
-              <PropertyRef Name="materialId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -509,22 +511,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Sales_Warehouse1">
-          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
-          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouse">
-              <PropertyRef Name="whId" />
-            </Principal>
-            <Dependent Role="Sales">
-              <PropertyRef Name="whId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Administrators" EntityType="Self.Administrators" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Entry Derails" EntityType="Self.Entry Derails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entry Details" EntityType="Self.Entry Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entrys" EntityType="Self.Entrys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Material Details" EntityType="Self.Material Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Material Request" EntityType="Self.Material Request" Schema="dbo" store:Type="Tables" />
@@ -534,31 +524,22 @@
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PO" EntityType="Self.PO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="POR" EntityType="Self.POR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sale Details" EntityType="Self.Sale Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Entry Details" EntityType="Self.Entry Details" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Entry Details].[entryId] AS [entryId], 
-    [Entry Details].[materialId] AS [materialId], 
-    [Entry Details].[entryNum] AS [entryNum], 
-    [Entry Details].[MaterialLotNum] AS [MaterialLotNum], 
-    [Entry Details].[Unit] AS [Unit], 
-    [Entry Details].[whId] AS [whId]
-    FROM [dbo].[Entry Details] AS [Entry Details]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_Entry Derails_Entrys" Association="Self.FK_Entry Derails_Entrys">
+          <AssociationSet Name="FK_Entry Details_Entrys" Association="Self.FK_Entry Details_Entrys">
             <End Role="Entrys" EntitySet="Entrys" />
-            <End Role="Entry Derails" EntitySet="Entry Derails" />
+            <End Role="Entry Details" EntitySet="Entry Details" />
           </AssociationSet>
-          <AssociationSet Name="FK_Entry Derails_Materials" Association="Self.FK_Entry Derails_Materials">
+          <AssociationSet Name="FK_Entry Details_Materials" Association="Self.FK_Entry Details_Materials">
             <End Role="Materials" EntitySet="Materials" />
-            <End Role="Entry Derails" EntitySet="Entry Derails" />
+            <End Role="Entry Details" EntitySet="Entry Details" />
           </AssociationSet>
-          <AssociationSet Name="FK_Entry Derails_Warehouse" Association="Self.FK_Entry Derails_Warehouse">
+          <AssociationSet Name="FK_Entry Details_Warehouse" Association="Self.FK_Entry Details_Warehouse">
             <End Role="Warehouse" EntitySet="Warehouse" />
-            <End Role="Entry Derails" EntitySet="Entry Derails" />
+            <End Role="Entry Details" EntitySet="Entry Details" />
           </AssociationSet>
           <AssociationSet Name="FK_Entrys_Members" Association="Self.FK_Entrys_Members">
             <End Role="Members" EntitySet="Members" />
@@ -628,24 +609,24 @@
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="POR" EntitySet="POR" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sale Details_Materials" Association="Self.FK_Sale Details_Materials">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="Sale Details" EntitySet="Sale Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale Details_Sales" Association="Self.FK_Sale Details_Sales">
+            <End Role="Sales" EntitySet="Sales" />
+            <End Role="Sale Details" EntitySet="Sale Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale Details_Warehouse" Association="Self.FK_Sale Details_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="Sale Details" EntitySet="Sale Details" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sales_Customers" Association="Self.FK_Sales_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Sales" EntitySet="Sales" />
           </AssociationSet>
-          <AssociationSet Name="FK_Sales_Materials" Association="Self.FK_Sales_Materials">
-            <End Role="Materials" EntitySet="Materials" />
-            <End Role="Sales" EntitySet="Sales" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sales_Materials1" Association="Self.FK_Sales_Materials1">
-            <End Role="Materials" EntitySet="Materials" />
-            <End Role="Sales" EntitySet="Sales" />
-          </AssociationSet>
           <AssociationSet Name="FK_Sales_Members1" Association="Self.FK_Sales_Members1">
             <End Role="Members" EntitySet="Members" />
-            <End Role="Sales" EntitySet="Sales" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sales_Warehouse1" Association="Self.FK_Sales_Warehouse1">
-            <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="Sales" EntitySet="Sales" />
           </AssociationSet>
         </EntityContainer>
@@ -679,7 +660,7 @@
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Customers" FromRole="Customers" ToRole="Orders" />
           <NavigationProperty Name="Sales" Relationship="Self.FK_Sales_Customers" FromRole="Customers" ToRole="Sales" />
         </EntityType>
-        <EntityType Name="Entry_Derails">
+        <EntityType Name="Entry_Details">
           <Key>
             <PropertyRef Name="entryId" />
             <PropertyRef Name="materialId" />
@@ -690,9 +671,9 @@
           <Property Name="MaterialLotNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="whId" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Entrys" Relationship="Self.FK_Entry_Derails_Entrys" FromRole="Entry_Derails" ToRole="Entrys" />
-          <NavigationProperty Name="Materials" Relationship="Self.FK_Entry_Derails_Materials" FromRole="Entry_Derails" ToRole="Materials" />
-          <NavigationProperty Name="Warehouse" Relationship="Self.FK_Entry_Derails_Warehouse" FromRole="Entry_Derails" ToRole="Warehouse" />
+          <NavigationProperty Name="Entrys" Relationship="Self.FK_Entry_Details_Entrys" FromRole="Entry_Details" ToRole="Entrys" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK_Entry_Details_Materials" FromRole="Entry_Details" ToRole="Materials" />
+          <NavigationProperty Name="Warehouse" Relationship="Self.FK_Entry_Details_Warehouse" FromRole="Entry_Details" ToRole="Warehouse" />
         </EntityType>
         <EntityType Name="Entrys">
           <Key>
@@ -702,7 +683,7 @@
           <Property Name="memId" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="entryTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="entryNotes" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Entry_Derails" Relationship="Self.FK_Entry_Derails_Entrys" FromRole="Entrys" ToRole="Entry_Derails" />
+          <NavigationProperty Name="Entry_Details" Relationship="Self.FK_Entry_Details_Entrys" FromRole="Entrys" ToRole="Entry_Details" />
           <NavigationProperty Name="Members" Relationship="Self.FK_Entrys_Members" FromRole="Entrys" ToRole="Members" />
         </EntityType>
         <EntityType Name="Material_Details">
@@ -748,12 +729,11 @@
           <Property Name="materialName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="goodId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="materialType" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="Entry_Derails" Relationship="Self.FK_Entry_Derails_Materials" FromRole="Materials" ToRole="Entry_Derails" />
+          <NavigationProperty Name="Entry_Details" Relationship="Self.FK_Entry_Details_Materials" FromRole="Materials" ToRole="Entry_Details" />
           <NavigationProperty Name="Material_Details" Relationship="Self.FK_Material_Details_Materials" FromRole="Materials" ToRole="Material_Details" />
           <NavigationProperty Name="Material_Request" Relationship="Self.FK_Material_Request_Materials" FromRole="Materials" ToRole="Material_Request" />
           <NavigationProperty Name="Order_Details" Relationship="Self.FK_Order_Details_Materials" FromRole="Materials" ToRole="Order_Details" />
-          <NavigationProperty Name="Sales" Relationship="Self.FK_Sales_Materials" FromRole="Materials" ToRole="Sales" />
-          <NavigationProperty Name="Sales1" Relationship="Self.FK_Sales_Materials1" FromRole="Materials" ToRole="Sales" />
+          <NavigationProperty Name="Sale_Details" Relationship="Self.FK_Sale_Details_Materials" FromRole="Materials" ToRole="Sale_Details" />
         </EntityType>
         <EntityType Name="Members">
           <Key>
@@ -843,29 +823,37 @@
           <NavigationProperty Name="PO" Relationship="Self.FK_POR_PO" FromRole="POR" ToRole="PO" />
           <NavigationProperty Name="Suppliers" Relationship="Self.FK_POR_Suppliers" FromRole="POR" ToRole="Suppliers" />
         </EntityType>
+        <EntityType Name="Sale_Details">
+          <Key>
+            <PropertyRef Name="saleId" />
+            <PropertyRef Name="whId" />
+          </Key>
+          <Property Name="saleId" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="whId" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="materialId" Type="String" MaxLength="52" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="saleNum" Type="Double" Nullable="false" />
+          <Property Name="Unit" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="materialLotNo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK_Sale_Details_Materials" FromRole="Sale_Details" ToRole="Materials" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_Details_Sales" FromRole="Sale_Details" ToRole="Sales" />
+          <NavigationProperty Name="Warehouse" Relationship="Self.FK_Sale_Details_Warehouse" FromRole="Sale_Details" ToRole="Warehouse" />
+        </EntityType>
         <EntityType Name="Sales">
           <Key>
             <PropertyRef Name="saleId" />
           </Key>
           <Property Name="saleId" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="memId" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="whId" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="materialId" Type="String" MaxLength="52" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="saleNum" Type="Double" Nullable="false" />
-          <Property Name="Unit" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="saleAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="delType" Type="Byte" Nullable="false" />
           <Property Name="saleStatus" Type="Byte" Nullable="false" />
           <Property Name="saleCreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="saleFinishTime" Type="DateTime" Precision="3" />
-          <Property Name="materialLotNo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="saleNotes" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="cusId" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Customers" Relationship="Self.FK_Sales_Customers" FromRole="Sales" ToRole="Customers" />
-          <NavigationProperty Name="Materials" Relationship="Self.FK_Sales_Materials" FromRole="Sales" ToRole="Materials" />
-          <NavigationProperty Name="Materials1" Relationship="Self.FK_Sales_Materials1" FromRole="Sales" ToRole="Materials" />
           <NavigationProperty Name="Members" Relationship="Self.FK_Sales_Members1" FromRole="Sales" ToRole="Members" />
-          <NavigationProperty Name="Warehouse" Relationship="Self.FK_Sales_Warehouse1" FromRole="Sales" ToRole="Warehouse" />
+          <NavigationProperty Name="Sale_Details" Relationship="Self.FK_Sale_Details_Sales" FromRole="Sales" ToRole="Sale_Details" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
@@ -898,25 +886,10 @@
           <Property Name="whName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="whTel" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="whAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Entry_Derails" Relationship="Self.FK_Entry_Derails_Warehouse" FromRole="Warehouse" ToRole="Entry_Derails" />
+          <NavigationProperty Name="Entry_Details" Relationship="Self.FK_Entry_Details_Warehouse" FromRole="Warehouse" ToRole="Entry_Details" />
           <NavigationProperty Name="Material_Details" Relationship="Self.FK_Material_Details_Warehouse" FromRole="Warehouse" ToRole="Material_Details" />
           <NavigationProperty Name="Material_Request" Relationship="Self.FK_Material_Request_Warehouse1" FromRole="Warehouse" ToRole="Material_Request" />
-          <NavigationProperty Name="Sales" Relationship="Self.FK_Sales_Warehouse1" FromRole="Warehouse" ToRole="Sales" />
-        </EntityType>
-        <EntityType Name="Entry_Details">
-          <Key>
-            <PropertyRef Name="entryId" />
-            <PropertyRef Name="materialId" />
-            <PropertyRef Name="entryNum" />
-            <PropertyRef Name="Unit" />
-            <PropertyRef Name="whId" />
-          </Key>
-          <Property Name="entryId" Type="String" MaxLength="13" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="materialId" Type="String" MaxLength="52" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="entryNum" Type="Double" Nullable="false" />
-          <Property Name="MaterialLotNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="whId" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Sale_Details" Relationship="Self.FK_Sale_Details_Warehouse" FromRole="Warehouse" ToRole="Sale_Details" />
         </EntityType>
         <Association Name="FK_Members_Administrators">
           <End Role="Administrators" Type="Self.Administrators" Multiplicity="1" />
@@ -954,38 +927,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Entry_Derails_Entrys">
+        <Association Name="FK_Entry_Details_Entrys">
           <End Role="Entrys" Type="Self.Entrys" Multiplicity="1" />
-          <End Role="Entry_Derails" Type="Self.Entry_Derails" Multiplicity="*" />
+          <End Role="Entry_Details" Type="Self.Entry_Details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Entrys">
               <PropertyRef Name="entryId" />
             </Principal>
-            <Dependent Role="Entry_Derails">
+            <Dependent Role="Entry_Details">
               <PropertyRef Name="entryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Entry_Derails_Materials">
+        <Association Name="FK_Entry_Details_Materials">
           <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
-          <End Role="Entry_Derails" Type="Self.Entry_Derails" Multiplicity="*" />
+          <End Role="Entry_Details" Type="Self.Entry_Details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Materials">
               <PropertyRef Name="materialId" />
             </Principal>
-            <Dependent Role="Entry_Derails">
+            <Dependent Role="Entry_Details">
               <PropertyRef Name="materialId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Entry_Derails_Warehouse">
+        <Association Name="FK_Entry_Details_Warehouse">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
-          <End Role="Entry_Derails" Type="Self.Entry_Derails" Multiplicity="*" />
+          <End Role="Entry_Details" Type="Self.Entry_Details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Warehouse">
               <PropertyRef Name="whId" />
             </Principal>
-            <Dependent Role="Entry_Derails">
+            <Dependent Role="Entry_Details">
               <PropertyRef Name="whId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1086,26 +1059,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Sales_Materials">
+        <Association Name="FK_Sale_Details_Materials">
           <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
-          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+          <End Role="Sale_Details" Type="Self.Sale_Details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Materials">
               <PropertyRef Name="materialId" />
             </Principal>
-            <Dependent Role="Sales">
-              <PropertyRef Name="materialId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sales_Materials1">
-          <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
-          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Materials">
-              <PropertyRef Name="materialId" />
-            </Principal>
-            <Dependent Role="Sales">
+            <Dependent Role="Sale_Details">
               <PropertyRef Name="materialId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1206,14 +1167,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Sales_Warehouse1">
+        <Association Name="FK_Sale_Details_Sales">
+          <End Role="Sales" Type="Self.Sales" Multiplicity="1" />
+          <End Role="Sale_Details" Type="Self.Sale_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="saleId" />
+            </Principal>
+            <Dependent Role="Sale_Details">
+              <PropertyRef Name="saleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Details_Warehouse">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
-          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+          <End Role="Sale_Details" Type="Self.Sale_Details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Warehouse">
               <PropertyRef Name="whId" />
             </Principal>
-            <Dependent Role="Sales">
+            <Dependent Role="Sale_Details">
               <PropertyRef Name="whId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1221,7 +1194,7 @@
         <EntityContainer Name="Material_ManagementEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrators" />
           <EntitySet Name="Customers" EntityType="Self.Customers" />
-          <EntitySet Name="Entry_Derails" EntityType="Self.Entry_Derails" />
+          <EntitySet Name="Entry_Details" EntityType="Self.Entry_Details" />
           <EntitySet Name="Entrys" EntityType="Self.Entrys" />
           <EntitySet Name="Material_Details" EntityType="Self.Material_Details" />
           <EntitySet Name="Material_Request" EntityType="Self.Material_Request" />
@@ -1231,11 +1204,11 @@
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="PO" EntityType="Self.PO" />
           <EntitySet Name="POR" EntityType="Self.POR" />
+          <EntitySet Name="Sale_Details" EntityType="Self.Sale_Details" />
           <EntitySet Name="Sales" EntityType="Self.Sales" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" />
-          <EntitySet Name="Entry_Details" EntityType="Self.Entry_Details" />
           <AssociationSet Name="FK_Members_Administrators" Association="Self.FK_Members_Administrators">
             <End Role="Administrators" EntitySet="Administrators" />
             <End Role="Members" EntitySet="Members" />
@@ -1248,17 +1221,17 @@
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Sales" EntitySet="Sales" />
           </AssociationSet>
-          <AssociationSet Name="FK_Entry_Derails_Entrys" Association="Self.FK_Entry_Derails_Entrys">
+          <AssociationSet Name="FK_Entry_Details_Entrys" Association="Self.FK_Entry_Details_Entrys">
             <End Role="Entrys" EntitySet="Entrys" />
-            <End Role="Entry_Derails" EntitySet="Entry_Derails" />
+            <End Role="Entry_Details" EntitySet="Entry_Details" />
           </AssociationSet>
-          <AssociationSet Name="FK_Entry_Derails_Materials" Association="Self.FK_Entry_Derails_Materials">
+          <AssociationSet Name="FK_Entry_Details_Materials" Association="Self.FK_Entry_Details_Materials">
             <End Role="Materials" EntitySet="Materials" />
-            <End Role="Entry_Derails" EntitySet="Entry_Derails" />
+            <End Role="Entry_Details" EntitySet="Entry_Details" />
           </AssociationSet>
-          <AssociationSet Name="FK_Entry_Derails_Warehouse" Association="Self.FK_Entry_Derails_Warehouse">
+          <AssociationSet Name="FK_Entry_Details_Warehouse" Association="Self.FK_Entry_Details_Warehouse">
             <End Role="Warehouse" EntitySet="Warehouse" />
-            <End Role="Entry_Derails" EntitySet="Entry_Derails" />
+            <End Role="Entry_Details" EntitySet="Entry_Details" />
           </AssociationSet>
           <AssociationSet Name="FK_Entrys_Members" Association="Self.FK_Entrys_Members">
             <End Role="Members" EntitySet="Members" />
@@ -1292,13 +1265,9 @@
             <End Role="Materials" EntitySet="Materials" />
             <End Role="Order_Details" EntitySet="Order_Details" />
           </AssociationSet>
-          <AssociationSet Name="FK_Sales_Materials" Association="Self.FK_Sales_Materials">
+          <AssociationSet Name="FK_Sale_Details_Materials" Association="Self.FK_Sale_Details_Materials">
             <End Role="Materials" EntitySet="Materials" />
-            <End Role="Sales" EntitySet="Sales" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sales_Materials1" Association="Self.FK_Sales_Materials1">
-            <End Role="Materials" EntitySet="Materials" />
-            <End Role="Sales" EntitySet="Sales" />
+            <End Role="Sale_Details" EntitySet="Sale_Details" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Members" Association="Self.FK_Orders_Members">
             <End Role="Members" EntitySet="Members" />
@@ -1332,9 +1301,13 @@
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="POR" EntitySet="POR" />
           </AssociationSet>
-          <AssociationSet Name="FK_Sales_Warehouse1" Association="Self.FK_Sales_Warehouse1">
-            <End Role="Warehouse" EntitySet="Warehouse" />
+          <AssociationSet Name="FK_Sale_Details_Sales" Association="Self.FK_Sale_Details_Sales">
             <End Role="Sales" EntitySet="Sales" />
+            <End Role="Sale_Details" EntitySet="Sale_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Details_Warehouse" Association="Self.FK_Sale_Details_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="Sale_Details" EntitySet="Sale_Details" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1367,9 +1340,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Entry_Derails">
-            <EntityTypeMapping TypeName="Model.Entry_Derails">
-              <MappingFragment StoreEntitySet="Entry Derails">
+          <EntitySetMapping Name="Entry_Details">
+            <EntityTypeMapping TypeName="Model.Entry_Details">
+              <MappingFragment StoreEntitySet="Entry Details">
                 <ScalarProperty Name="entryId" ColumnName="entryId" />
                 <ScalarProperty Name="materialId" ColumnName="materialId" />
                 <ScalarProperty Name="entryNum" ColumnName="entryNum" />
@@ -1502,21 +1475,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Sale_Details">
+            <EntityTypeMapping TypeName="Model.Sale_Details">
+              <MappingFragment StoreEntitySet="Sale Details">
+                <ScalarProperty Name="saleId" ColumnName="saleId" />
+                <ScalarProperty Name="whId" ColumnName="whId" />
+                <ScalarProperty Name="materialId" ColumnName="materialId" />
+                <ScalarProperty Name="saleNum" ColumnName="saleNum" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="materialLotNo" ColumnName="materialLotNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Sales">
             <EntityTypeMapping TypeName="Model.Sales">
               <MappingFragment StoreEntitySet="Sales">
                 <ScalarProperty Name="saleId" ColumnName="saleId" />
                 <ScalarProperty Name="memId" ColumnName="memId" />
-                <ScalarProperty Name="whId" ColumnName="whId" />
-                <ScalarProperty Name="materialId" ColumnName="materialId" />
-                <ScalarProperty Name="saleNum" ColumnName="saleNum" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="saleAddress" ColumnName="saleAddress" />
                 <ScalarProperty Name="delType" ColumnName="delType" />
                 <ScalarProperty Name="saleStatus" ColumnName="saleStatus" />
                 <ScalarProperty Name="saleCreateTime" ColumnName="saleCreateTime" />
                 <ScalarProperty Name="saleFinishTime" ColumnName="saleFinishTime" />
-                <ScalarProperty Name="materialLotNo" ColumnName="materialLotNo" />
                 <ScalarProperty Name="saleNotes" ColumnName="saleNotes" />
                 <ScalarProperty Name="cusId" ColumnName="cusId" />
               </MappingFragment>
@@ -1551,18 +1531,6 @@
                 <ScalarProperty Name="whName" ColumnName="whName" />
                 <ScalarProperty Name="whTel" ColumnName="whTel" />
                 <ScalarProperty Name="whAddress" ColumnName="whAddress" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Entry_Details">
-            <EntityTypeMapping TypeName="Model.Entry_Details">
-              <MappingFragment StoreEntitySet="Entry Details">
-                <ScalarProperty Name="entryId" ColumnName="entryId" />
-                <ScalarProperty Name="materialId" ColumnName="materialId" />
-                <ScalarProperty Name="entryNum" ColumnName="entryNum" />
-                <ScalarProperty Name="MaterialLotNum" ColumnName="MaterialLotNum" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="whId" ColumnName="whId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

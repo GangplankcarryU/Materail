@@ -12,17 +12,17 @@ namespace Materail.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Entry_Derails
+    public partial class Sale_Details
     {
-        public string entryId { get; set; }
-        public string materialId { get; set; }
-        public double entryNum { get; set; }
-        public string MaterialLotNum { get; set; }
-        public string Unit { get; set; }
+        public string saleId { get; set; }
         public string whId { get; set; }
+        public string materialId { get; set; }
+        public double saleNum { get; set; }
+        public string Unit { get; set; }
+        public string materialLotNo { get; set; }
     
-        public virtual Entrys Entrys { get; set; }
         public virtual Materials Materials { get; set; }
+        public virtual Sales Sales { get; set; }
         public virtual Warehouse Warehouse { get; set; }
     }
 }

@@ -20,5 +20,9 @@ namespace Materail.Models
         public string MaterialLotNum { get; set; }
         public string Unit { get; set; }
         public string whId { get; set; }
+    
+        public virtual Entrys Entrys { get; set; }
+        public virtual Materials Materials { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
     }
 }
